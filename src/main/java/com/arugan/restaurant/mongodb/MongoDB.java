@@ -17,7 +17,7 @@ public class MongoDB {
 
 
 	private MongoDB() throws UnknownHostException {
-		MongoClient mongoClient = new MongoClient("localhost", 27017);
+		MongoClient mongoClient = new MongoClient("192.168.2.100", 27017);
 		db = mongoClient.getDB(Constant.DB_NAME);
 		target = db.getCollection("target");
 		restaurant = db.getCollection("restaurant");
