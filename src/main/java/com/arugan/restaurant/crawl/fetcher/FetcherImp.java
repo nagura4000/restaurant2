@@ -28,8 +28,20 @@ public class FetcherImp implements Fetcher {
 		return fetcher;
 	}
 
-	public HtmlPage getPage(String url) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
-		HtmlPage page = webClient.getPage(url);
+	public HtmlPage getPage(String url) {
+		HtmlPage page = null;
+		try {
+			page = webClient.getPage(url);
+		} catch (FailingHttpStatusCodeException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 		return page;
 	}
 
