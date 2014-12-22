@@ -33,4 +33,36 @@ public class FetcherTest {
 		}
 	}
 
+	private void start() {
+
+		fetcher = FetcherImp.getInstance();
+		linkGetter = new LinkGetterImp();
+
+		String url = "http://tabelog.com/kanagawa/A1402/A140204/";
+		HtmlPage page = null;
+		try {
+			page = fetcher.getPage(url);
+		} catch (FailingHttpStatusCodeException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		for (String link :linkGetter.getLinkList(page)) {
+			System.out.println(link);
+		}
+	}
+	public static void main(String[] args) {
+
+		FetcherTest test = new FetcherTest();
+		test.start();
+
+
+	}
+
 }
