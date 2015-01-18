@@ -2,18 +2,12 @@ package com.arugan.restaurant.crawl.logic;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.UnknownHostException;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.arugan.restaurant.crawl.dto.PageDTO;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
 
 public class CrawlLogicImpTest {
 	private CrawlLogic logic;
@@ -146,21 +140,21 @@ public class CrawlLogicImpTest {
 		System.out.println(pageDTO.getParseResult());
 	}
 
-	@Test
-	public void testMongoDB() throws UnknownHostException {
-		MongoClient mongoClient = new MongoClient("localhost", 27017);
-		DB db= mongoClient.getDB("testDB");
-
-		DBCollection member = db.getCollection("member");
-
-		String yahoo = "http://www.yahoo.co.jp";
-		BasicDBObject document = new BasicDBObject("url", yahoo);
-		member.insert(document);
-
-		BasicDBObject searchObj = new BasicDBObject();
-		searchObj.put("url", yahoo);
-		DBObject newSerizawa = member.findOne(searchObj);
-//		DBObject newSerizawa = member.findOne();
-		System.out.println(newSerizawa.get("url"));
-	}
+//	@Test
+//	public void testMongoDB() throws UnknownHostException {
+//		MongoClient mongoClient = new MongoClient("localhost", 27017);
+//		DB db= mongoClient.getDB("testDB");
+//
+//		DBCollection member = db.getCollection("member");
+//
+//		String yahoo = "http://www.yahoo.co.jp";
+//		BasicDBObject document = new BasicDBObject("url", yahoo);
+//		member.insert(document);
+//
+//		BasicDBObject searchObj = new BasicDBObject();
+//		searchObj.put("url", yahoo);
+//		DBObject newSerizawa = member.findOne(searchObj);
+////		DBObject newSerizawa = member.findOne();
+//		System.out.println(newSerizawa.get("url"));
+//	}
 }
