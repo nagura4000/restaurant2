@@ -3,6 +3,8 @@ package com.arugan.restaurant.crawl.fetcher;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import org.apache.log4j.Logger;
+
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -13,6 +15,8 @@ public class FetcherImp implements Fetcher {
 	private static WebClient webClient;
 
 	private static Fetcher fetcher;
+
+	private Logger log = Logger.getLogger(this.getClass());
 
 	private FetcherImp() {
 		webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER_9);
@@ -31,16 +35,17 @@ public class FetcherImp implements Fetcher {
 	public HtmlPage getPage(String url) {
 		HtmlPage page = null;
 		try {
+			log.info("target url:" + url);
 			page = webClient.getPage(url);
+			log.info("fetch OK.");
 		} catch (FailingHttpStatusCodeException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			log.error(e.getMessage());
 		} catch (MalformedURLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			log.error(e.getMessage());
 		} catch (IOException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
+			log.error(e.getMessage());
+		} catch (Exception e) {
+			log.error(e.getMessage());
 		}
 		return page;
 	}
