@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 
 import org.apache.log4j.Logger;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -18,7 +19,7 @@ public class FetcherImp implements Fetcher {
 	private Logger log = Logger.getLogger(this.getClass());
 
 	private FetcherImp() {
-		webClient = new WebClient();
+		webClient = new WebClient(BrowserVersion.INTERNET_EXPLORER_8);
 		webClient.setJavaScriptEnabled(false);
 		webClient.setThrowExceptionOnScriptError(false);
 

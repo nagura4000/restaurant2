@@ -1,6 +1,7 @@
 package com.arugan.restaurant.crawl.parse;
 
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.log4j.Logger;
 
@@ -19,6 +21,7 @@ import com.arugan.restaurant.crawl.dto.ReviewDTO;
 import com.arugan.restaurant.crawl.dto.TabelogDTO;
 import com.arugan.restaurant.crawl.fetcher.Fetcher;
 import com.arugan.restaurant.crawl.fetcher.FetcherImp;
+import com.arugan.restaurant.crawl.img.ImageGeter;
 import com.arugan.restaurant.crawl.util.Util;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -36,6 +39,8 @@ public class TabelogParser implements Parser {
 	private Pattern googleLocationPattern = Pattern.compile("lat=(\\d{2}\\.\\d+)&lng=(\\d{3}\\.\\d+)");
 
 	private Logger logger = Logger.getLogger(this.getClass());
+
+	private ImageGeter imageGeter = new ImageGeter();
 
 	@Override
 	public RestaurantDTO parse(HtmlPage page) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
@@ -80,7 +85,23 @@ public class TabelogParser implements Parser {
 
 		dto.setReviewList(getReview(page));
 
+		saveImage(dto.getImageUrls());
+
 		return dto;
+	}
+
+	private void saveImage(List<String> imageUrlList) {
+		for (String imgUrl : imageUrlList) {
+			String[] savePaths = imgUrl.replaceAll("https?://(.+)/(.+)$", "$1\t$2").split("\t");
+			String savePath = savePaths[0] + "/" + savePaths[1];
+			try {
+				FileUtils.forceMkdir(new File(savePaths[0]));
+				imageGeter.saveImage(imgUrl, savePath);
+			} catch (IOException e) {
+				// TODO 自動生成された catch ブロック
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@SuppressWarnings("unchecked")
