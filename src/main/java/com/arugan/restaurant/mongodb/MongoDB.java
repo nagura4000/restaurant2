@@ -22,6 +22,7 @@ public class MongoDB {
 		db = mongoClient.getDB(Constant.DB_NAME);
 		target = db.getCollection("target");
 		restaurant = db.getCollection("restaurant");
+		log = db.getCollection("log");
 	}
 
 	public static MongoDB getInstance() {
