@@ -45,7 +45,11 @@ public class TabelogParser implements Parser {
 
 	private ImageGeter imageGeter = new ImageGeter();
 
-	private DBCollection logDB = MongoDB.getInstance().getLogDBCollection();
+	private DBCollection logDB;
+
+	public TabelogParser() {
+		this.logDB = MongoDB.getInstance().getLogDBCollection();
+	}
 
 	@Override
 	public RestaurantDTO parse(HtmlPage page) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
