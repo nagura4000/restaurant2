@@ -90,17 +90,13 @@ public class TabelogParser implements Parser {
 		return dto;
 	}
 
-	private void saveImage(List<String> imageUrlList) {
+	private void saveImage(List<String> imageUrlList) throws IOException {
 		for (String imgUrl : imageUrlList) {
 			String[] savePaths = imgUrl.replaceAll("https?://(.+)/(.+)$", "$1\t$2").split("\t");
 			String savePath = savePaths[0] + "/" + savePaths[1];
-			try {
-				FileUtils.forceMkdir(new File(savePaths[0]));
-				imageGeter.saveImage(imgUrl, savePath);
-			} catch (IOException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			}
+			FileUtils.forceMkdir(new File(savePaths[0]));
+			imageGeter.saveImage(imgUrl, savePath);
+
 		}
 	}
 
