@@ -15,12 +15,17 @@ public class ImageGeterTest {
 	}
 
 	@Test
-	public void test() throws IOException {
+	public void test() {
 
 		String imgUrl = "http://image1-3.tabelog.k-img.com/restaurant/images/Rvw/1624/1624632.jpg";
 		String savePath = "/tmp/1624632.jpg";
 
-		logic.saveImage(imgUrl, savePath);
+		try {
+			logic.saveImage(imgUrl, savePath);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
 
 	}
 
