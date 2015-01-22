@@ -14,6 +14,7 @@ public class MongoDB {
 	private DB db;
 	private DBCollection target;
 	private DBCollection restaurant;
+	private DBCollection log;
 
 
 	private MongoDB() throws UnknownHostException {
@@ -39,6 +40,10 @@ public class MongoDB {
 
 	public DBCollection getTargetDBCollection() {
 		return target;
+	}
+
+	public DBCollection getLogDBCollection() {
+		return log;
 	}
 
 }
