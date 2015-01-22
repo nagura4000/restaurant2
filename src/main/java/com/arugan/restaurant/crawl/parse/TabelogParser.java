@@ -106,7 +106,7 @@ public class TabelogParser implements Parser {
 			String savePath = dir + savePaths[1];
 
 			BasicDBObject log = new BasicDBObject();
-			log.put(savePath, dir);
+			log.put("savePath", savePath);
 			logDB.insert(log);
 
 			try {
@@ -114,7 +114,7 @@ public class TabelogParser implements Parser {
 				imageGeter.saveImage(imgUrl, savePath);
 			} catch (IOException e) {
 				BasicDBObject errLog = new BasicDBObject();
-				errLog.put(e.getMessage(), e.getMessage());
+				errLog.put("msg", e.getMessage());
 				logDB.insert(errLog);
 			}
 		}
