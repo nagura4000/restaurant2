@@ -48,7 +48,8 @@ public class TabelogParser implements Parser {
 	private DBCollection logDB;
 
 	public TabelogParser() {
-		this.logDB = MongoDB.getInstance().getLogDBCollection();
+//		this.logDB = MongoDB.getInstance().getLogDBCollection();
+		this.logDB = MongoDB.getInstance().getTargetDBCollection();
 	}
 
 	@Override
@@ -106,7 +107,7 @@ public class TabelogParser implements Parser {
 			String savePath = dir + savePaths[1];
 
 			BasicDBObject log = new BasicDBObject();
-			log.put("savePath", savePath);
+			log.put("url", savePath);
 			logDB.insert(log);
 
 			try {
@@ -114,7 +115,7 @@ public class TabelogParser implements Parser {
 				imageGeter.saveImage(imgUrl, savePath);
 			} catch (IOException e) {
 				BasicDBObject errLog = new BasicDBObject();
-				errLog.put("msg", e.getMessage());
+				errLog.put("url", e.getMessage());
 				logDB.insert(errLog);
 			}
 		}
