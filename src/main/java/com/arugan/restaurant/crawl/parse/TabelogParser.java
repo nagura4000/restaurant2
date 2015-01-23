@@ -100,7 +100,7 @@ public class TabelogParser implements Parser {
 	private void saveImage(List<String> imageUrlList) throws IOException {
 		for (String imgUrl : imageUrlList) {
 			String[] savePaths = imgUrl.replaceAll("https?://(.+)/(.+)$", "$1\t$2").split("\t");
-			String dir = "/tmp/" + savePaths[0];
+			String dir = "/tmp/image/" + savePaths[0];
 			String savePath = dir + savePaths[1];
 
 			FileUtils.forceMkdir(new File(dir));
