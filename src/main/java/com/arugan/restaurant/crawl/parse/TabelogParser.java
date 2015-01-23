@@ -23,12 +23,9 @@ import com.arugan.restaurant.crawl.fetcher.Fetcher;
 import com.arugan.restaurant.crawl.fetcher.FetcherImp;
 import com.arugan.restaurant.crawl.img.ImageGeter;
 import com.arugan.restaurant.crawl.util.Util;
-import com.arugan.restaurant.mongodb.MongoDB;
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
 
 public class TabelogParser implements Parser {
 
@@ -45,12 +42,12 @@ public class TabelogParser implements Parser {
 
 	private ImageGeter imageGeter = new ImageGeter();
 
-	private DBCollection logDB;
-
-	public TabelogParser() {
-//		this.logDB = MongoDB.getInstance().getLogDBCollection();
-		this.logDB = MongoDB.getInstance().getTargetDBCollection();
-	}
+//	private DBCollection logDB;
+//
+//	public TabelogParser() {
+////		this.logDB = MongoDB.getInstance().getLogDBCollection();
+//		this.logDB = MongoDB.getInstance().getTargetDBCollection();
+//	}
 
 	@Override
 	public RestaurantDTO parse(HtmlPage page) throws FailingHttpStatusCodeException, MalformedURLException, IOException {
@@ -100,24 +97,14 @@ public class TabelogParser implements Parser {
 		return dto;
 	}
 
-	private void saveImage(List<String> imageUrlList) {
+	private void saveImage(List<String> imageUrlList) throws IOException {
 		for (String imgUrl : imageUrlList) {
 			String[] savePaths = imgUrl.replaceAll("https?://(.+)/(.+)$", "$1\t$2").split("\t");
 			String dir = "/tmp/" + savePaths[0];
 			String savePath = dir + savePaths[1];
 
-			BasicDBObject log = new BasicDBObject();
-			log.put("url", savePath);
-			logDB.insert(log);
-
-			try {
-				FileUtils.forceMkdir(new File(dir));
-				imageGeter.saveImage(imgUrl, savePath);
-			} catch (IOException e) {
-				BasicDBObject errLog = new BasicDBObject();
-				errLog.put("url", e.getMessage());
-				logDB.insert(errLog);
-			}
+			FileUtils.forceMkdir(new File(dir));
+			imageGeter.saveImage(imgUrl, savePath);
 		}
 	}
 

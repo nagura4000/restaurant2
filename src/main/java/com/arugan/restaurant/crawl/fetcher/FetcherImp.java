@@ -23,6 +23,7 @@ public class FetcherImp implements Fetcher {
 		webClient.setJavaScriptEnabled(false);
 		webClient.setThrowExceptionOnScriptError(false);
 
+//		webClient = new WebClient(BrowserVersion.FIREFOX_24);
 //		webClient.getOptions().setJavaScriptEnabled(false);
 //		webClient.getOptions().setThrowExceptionOnScriptError(false);
 
