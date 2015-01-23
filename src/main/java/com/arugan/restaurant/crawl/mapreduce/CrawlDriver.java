@@ -29,7 +29,7 @@ public class CrawlDriver extends Configured implements Tool {
 		/*
 		 * Validate that two arguments were passed from the command line.
 		 */
-		if (args.length != 2) {
+		if (args.length < 3) {
 			System.out.printf("Usage: restrant <input dir> <output dir>\n");
 			System.exit(-1);
 		}
