@@ -45,7 +45,7 @@ public class CrawlDriver extends Configured implements Tool {
 		String outputDir = args[1];
 		boolean success = false;
 		Path inputPath = null;
-		int maxDepth = 2;
+		int maxDepth = Integer.parseInt(args[2]);
 
 		for (int depth = 0; depth < maxDepth; depth++) {
 
