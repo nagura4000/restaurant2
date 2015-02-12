@@ -92,20 +92,27 @@ public class TabelogParser implements Parser {
 
 		dto.setReviewList(getReview(page));
 
-		saveImage(dto.getImageUrls());
+		Map<String, String> imageMap = saveImage(dto.getImageUrls());
+		dto.setImageMap(imageMap);
 
 		return dto;
 	}
 
-	private void saveImage(List<String> imageUrlList) throws IOException {
+	private Map<String, String> saveImage(List<String> imageUrlList) throws IOException {
+
+		Map<String, String> imageMap = new HashMap<String, String>();
+
 		for (String imgUrl : imageUrlList) {
 			String[] savePaths = imgUrl.replaceAll("https?://(.+)/(.+)$", "$1\t$2").split("\t");
 			String dir = "/tmp/image/" + savePaths[0];
 			String savePath = dir + savePaths[1];
 
 			FileUtils.forceMkdir(new File(dir));
-			imageGeter.saveImage(imgUrl, savePath);
+			String imageString = imageGeter.saveImage(imgUrl, savePath);
+			imageMap.put(imgUrl, imageString);
 		}
+
+		return imageMap;
 	}
 
 	@SuppressWarnings("unchecked")

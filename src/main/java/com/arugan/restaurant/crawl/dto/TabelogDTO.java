@@ -2,6 +2,7 @@ package com.arugan.restaurant.crawl.dto;
 
 import java.awt.geom.Point2D;
 import java.util.List;
+import java.util.Map;
 
 public class TabelogDTO extends RestaurantDTO {
 
@@ -33,6 +34,8 @@ public class TabelogDTO extends RestaurantDTO {
 	private Point2D location;
 
 	private List<ReviewDTO> reviewList;
+
+	private Map<String, String> imageMap;
 
 	/**
 	 * @return reviewList
@@ -262,6 +265,12 @@ public class TabelogDTO extends RestaurantDTO {
 	 */
 	public void setGenres(List<String> genres) {
 		this.genres = genres;
+	}
+	public Map<String, String> getImageMap() {
+		return imageMap;
+	}
+	public void setImageMap(Map<String, String> imageMap) {
+		this.imageMap = imageMap;
 	}
 
 }
