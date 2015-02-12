@@ -109,7 +109,10 @@ public class TabelogParser implements Parser {
 
 			FileUtils.forceMkdir(new File(dir));
 			String imageString = imageGeter.saveImage(imgUrl, savePath);
-			imageMap.put(imgUrl, imageString);
+
+			String fileName = savePaths[1];
+			String key = fileName.substring(0, fileName.indexOf("."));
+			imageMap.put(key, imageString);
 		}
 
 		return imageMap;
